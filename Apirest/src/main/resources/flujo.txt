@@ -1,0 +1,110 @@
+Creación de la orden de trabajo (OT):
+
+Se crea una instancia de la entidad OrdenTrabajo utilizando su constructor o métodos de creación.
+Se establecen los valores de los atributos de la OT, como fechaorden, fechacierre, odometro, etc.
+Se asocia la OT al vehículo, proveedor y persona correspondientes utilizando las anotaciones @OneToOne y @JoinColumn.
+Se establece el atributo activo en true para indicar que la OT está activa.
+Se guarda la OT en la base de datos utilizando un repositorio JPA.
+
+
+Vehiculo vehiculo = obtenerVehiculo(...);
+Proveedor proveedor = obtenerProveedor(...);
+Persona persona = obtenerPersona(...);
+
+OrdenTrabajo ordenTrabajo = new OrdenTrabajo();
+ordenTrabajo.setFechaorden(LocalDate.now());
+ordenTrabajo.setFechacierre(LocalDate.now().plusDays(7));
+ordenTrabajo.setOdometro(10000);
+ordenTrabajo.setVehiculo(vehiculo);
+ordenTrabajo.setProveedor(proveedor);
+ordenTrabajo.setPersona(persona);
+ordenTrabajo.setActivo(true);
+
+ordenTrabajoRepository.save(ordenTrabajo);
+
+
+
+
+
+Adición de trabajos a la OT:
+
+Se obtiene la instancia de la OT guardada en el paso anterior.
+Se crea una lista de entidades Trabajo para almacenar los trabajos asociados a la OT.
+Para cada trabajo:
+Se crea una instancia de la entidad Trabajo y se establecen sus atributos, como idtrabajo, nombre, tipomantenimiento, etc.
+Se asocia el trabajo a la OT utilizando la anotación @ManyToOne y @JoinColumn.
+Se establece el atributo activo en true para indicar que el trabajo está activo.
+Se agregan los repuestos asociados al trabajo (ver paso 3).
+Se agrega la instancia de trabajo a la lista de trabajos.
+Se establece la lista de trabajos en la entidad OT.
+Se guarda la OT en la base de datos.
+
+
+
+
+
+OrdenTrabajo ordenTrabajo = ordenTrabajoRepository.findById(idOT).orElseThrow();
+
+List<Trabajo> trabajos = new ArrayList<>();
+
+Trabajo trabajo1 = new Trabajo();
+trabajo1.setIdtrabajo("TR-1234");
+trabajo1.setNombre("Mantenimiento preventivo");
+trabajo1.setTipomantenimiento("Preventivo");
+trabajo1.setPeriodicidad(12);
+trabajo1.setCuentacontable("1234567890");
+trabajo1.setActivo(true);
+
+// Agregar repuestos al trabajo 1 (ver paso 3)
+
+trabajo1.setOrdentrabajo(ordenTrabajo);
+
+Trabajo trabajo2 = new Trabajo();
+// ... (establecer atributos del trabajo 2)
+trabajo2.setOrdentrabajo(ordenTrabajo);
+
+// ... (agregar más trabajos si es necesario)
+
+trabajos.add(trabajo1);
+trabajos.add(trabajo2);
+
+ordenTrabajo.setTrabajolist(trabajos);
+
+ordenTrabajoRepository.save(ordenTrabajo);
+
+
+
+
+
+
+
+Adición de repuestos a un trabajo:
+
+Se obtiene la instancia del trabajo al que se quieren agregar los repuestos.
+Se crea una lista de entidades TrabajoRepuesto para almacenar los repuestos asociados al trabajo.
+Para cada repuesto:
+Se crea una instancia de la entidad TrabajoRepuesto y se establece la relación con el repuesto correspondiente.
+Se agrega la instancia de TrabajoRepuesto a la lista.
+Se establece la lista de TrabajoRepuesto en la entidad Trabajo.
+Se guarda el trabajo en la base de datos.
+
+
+
+Trabajo trabajo = trabajoRepository.findById(idTrabajo).orElseThrow();
+
+List<TrabajoRepuesto> trabajoRepuestoList = new ArrayList<>();
+
+Repuesto repuesto1 = obtenerRepuesto(...);
+TrabajoRepuesto trabajoRepuesto1 = new TrabajoRepuesto();
+trabajoRepuesto1.setRepuesto(repuesto1);
+
+Repuesto repuesto2 = obtenerRepuesto(...);
+TrabajoRepuesto trabajoRepuesto2 = new TrabajoRepuesto();
+trabajoRepuesto2.setRepuesto(repuesto2);
+
+trabajoRepuestoList.add(trabajoRepuesto1);
+trabajoRepuestoList.add(trabajoRepuesto2);
+
+trabajo.setTrabajoRepuestoList(trabajoRepuestoList);
+
+trabajoRepository.save(trabajo);
