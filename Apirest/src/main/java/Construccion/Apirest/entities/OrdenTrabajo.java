@@ -43,8 +43,8 @@ public class OrdenTrabajo {
     private Proveedor proveedor;
 
     @NotNull
-    @Column(nullable = false)
-    private int odometro;
+
+    private int odometrot;
 
     @NotNull
     @OneToOne

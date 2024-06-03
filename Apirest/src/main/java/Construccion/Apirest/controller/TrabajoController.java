@@ -1,5 +1,7 @@
 package Construccion.Apirest.controller;
+import Construccion.Apirest.controller.dto.RepuestoDTO;
 import Construccion.Apirest.controller.dto.TrabajoDTO;
+import Construccion.Apirest.entities.Repuesto;
 import Construccion.Apirest.entities.Trabajo;
 import Construccion.Apirest.service.ITrabajoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,7 @@ import java.util.stream.Collectors;
 
         @Autowired
         private ITrabajoService trabajoService;
-
-        @GetMapping("/obtenerid/{id}")
+ @GetMapping("/obtenerid/{id}")
         public ResponseEntity<?> findById(@PathVariable Long id) {
             Optional<Trabajo> trabajoOptional = trabajoService.findById(id);
 
@@ -27,14 +28,15 @@ import java.util.stream.Collectors;
                 Trabajo trabajo = trabajoOptional.get();
                 TrabajoDTO trabajoDTO = TrabajoDTO.builder()
                         .id(trabajo.getId())
-                        .idtrabajo(trabajo.getIdtrabajo())
+                        .codigo(trabajo.getCodigo())
                         .nombre(trabajo.getNombre())
                         .tipomantenimiento(trabajo.getTipomantenimiento())
                         .periodicidad(trabajo.getPeriodicidad())
                         .cuentacontable(trabajo.getCuentacontable())
                         .activo(trabajo.isActivo())
-                       // .ordentrabajo(trabajo.getOrdentrabajo()) // Assuming relationship exists
-                        //.trabajoRepuestoList(trabajo.getTrabajoRepuestoList()) // Assuming relationship exists
+                       //.ordentrabajo(trabajo.getOrdentrabajo()) // Assuming relationship exists
+
+
                         .build();
 
                 return ResponseEntity.ok(trabajoDTO);
@@ -48,14 +50,15 @@ import java.util.stream.Collectors;
                     .stream()
                     .map(trabajo -> TrabajoDTO.builder()
                             .id(trabajo.getId())
-                            .idtrabajo(trabajo.getIdtrabajo())
+                            .codigo(trabajo.getCodigo())
                             .nombre(trabajo.getNombre())
                             .tipomantenimiento(trabajo.getTipomantenimiento())
                             .periodicidad(trabajo.getPeriodicidad())
                             .cuentacontable(trabajo.getCuentacontable())
                             .activo(trabajo.isActivo())
-                            //.ordentrabajo(trabajo.getOrdentrabajo()) // Assuming relationship exists
-                           // .trabajoRepuestoList(trabajo.getTrabajoRepuestoList()) // Assuming relationship exists
+
+                           //.ordentrabajo(trabajo.getOrdentrabajo())
+
                             .build())
                     .collect(Collectors.toList());
 
@@ -65,12 +68,12 @@ import java.util.stream.Collectors;
         @PostMapping("/guardar")
         public ResponseEntity<?> save(@RequestBody TrabajoDTO trabajoDTO) throws URISyntaxException {
 
-            if (trabajoDTO.getIdtrabajo().isBlank()) {
+            if (trabajoDTO.getCodigo().isBlank()) {
                 return ResponseEntity.badRequest().build();
             }
 
             Trabajo trabajo = Trabajo.builder()
-                    .idtrabajo(trabajoDTO.getIdtrabajo())
+                    .codigo(trabajoDTO.getCodigo())
                     .nombre(trabajoDTO.getNombre())
                     .tipomantenimiento(trabajoDTO.getTipomantenimiento())
                     .periodicidad(trabajoDTO.getPeriodicidad())
@@ -90,7 +93,7 @@ import java.util.stream.Collectors;
 
             if (trabajoOptional.isPresent()) {
                 Trabajo trabajo = trabajoOptional.get();
-                trabajo.setIdtrabajo(trabajoDTO.getIdtrabajo());
+                trabajo.setCodigo(trabajoDTO.getCodigo());
                 trabajo.setNombre(trabajoDTO.getNombre());
                 trabajo.setTipomantenimiento(trabajoDTO.getTipomantenimiento());
                 trabajo.setPeriodicidad(trabajoDTO.getPeriodicidad());

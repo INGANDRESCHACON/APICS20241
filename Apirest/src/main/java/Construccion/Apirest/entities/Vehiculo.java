@@ -37,6 +37,10 @@ public class Vehiculo {
 
     @NotNull
     @Column(nullable = false)
+    private int odometro;
+
+    @NotNull
+    @Column(nullable = false)
     private String combustible;
 
 

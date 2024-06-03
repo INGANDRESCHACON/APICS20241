@@ -1,5 +1,5 @@
 package Construccion.Apirest.controller.dto;
-import Construccion.Apirest.entities.TrabajoRepuesto;
+import Construccion.Apirest.entities.Repuesto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +21,8 @@ public class RepuestoDTO{
     private String referencia;
     private String cuentacontable;
     private boolean activo;
-    private List<TrabajoRepuesto> trabajoRepuestoList = new ArrayList<>();
+
+   // private List<Repuesto> repuestolist =new ArrayList<>();
 
 
 

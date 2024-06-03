@@ -33,6 +33,7 @@ public class VehiculoController {
                     .linea(vehiculo.getLinea())
                     .modelo(vehiculo.getModelo())
                     .centrocosto(vehiculo.getCentrocosto())
+                    .odometro(vehiculo.getOdometro())
                     .combustible(vehiculo.getCombustible())
                     .activo(vehiculo.isActivo()) // Añadir el campo activo
                     .build();
@@ -58,6 +59,7 @@ public class VehiculoController {
                         .linea(vehiculo.getLinea())
                         .modelo(vehiculo.getModelo())
                         .centrocosto(vehiculo.getCentrocosto())
+                        .odometro(vehiculo.getOdometro())
                         .combustible(vehiculo.getCombustible())
                         .activo(vehiculo.isActivo()) // Añadir el campo activo
                         .build())
@@ -81,6 +83,7 @@ public class VehiculoController {
                     .linea(vehiculoDTO.getLinea())
                     .modelo(vehiculoDTO.getModelo())
                     .centrocosto(vehiculoDTO.getCentrocosto())
+                    .odometro(vehiculoDTO.getOdometro())
                     .combustible(vehiculoDTO.getCombustible())
                     .activo(vehiculoDTO.isActivo())
                     .build());
@@ -106,6 +109,7 @@ public class VehiculoController {
         vehiculo.setLinea(vehiculoDTO.getLinea());
         vehiculo.setModelo(vehiculoDTO.getModelo());
         vehiculo.setCentrocosto(vehiculoDTO.getCentrocosto());
+        vehiculo.setOdometro(vehiculoDTO.getOdometro());
         vehiculo.setCombustible(vehiculoDTO.getCombustible());
         vehiculo.setActivo(vehiculoDTO.isActivo());
         vehiculoService.save(vehiculo);
