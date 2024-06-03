@@ -32,15 +32,35 @@ public class OrdenTrabajoController {
                     .fechaorden(ordenTrabajo.getFechaorden())
                     .fechacierre(ordenTrabajo.getFechacierre())
                     .proveedor(ordenTrabajo.getProveedor()) // Assuming relationship exists
-                    .odometro(ordenTrabajo.getOdometro())
+                    .odometrot(ordenTrabajo.getOdometrot())
                     .persona(ordenTrabajo.getPersona()) // Assuming relationship exists
                     .activo(ordenTrabajo.isActivo())
-                    //.trabajoList(ordenTrabajo.getTrabajolist()) // Assuming relationship exists
+                    .trabajolist(ordenTrabajo.getTrabajolist()) // Assuming relationship exists
                     .build();
 
             return ResponseEntity.ok(ordenTrabajoDTO);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/obtenertodo")
+    public ResponseEntity<?> findAll() {
+        List<OrdenTrabajoDTO> ordenTrabajoList = ordenTrabajoService.findAll()
+                .stream()
+                .map(ordenTrabajo -> OrdenTrabajoDTO.builder()
+                        .orden_id(ordenTrabajo.getOrden_id())
+                        .vehiculo(ordenTrabajo.getVehiculo()) // Assuming relationship exists
+                        .fechaorden(ordenTrabajo.getFechaorden())
+                        .fechacierre(ordenTrabajo.getFechacierre())
+                        .proveedor(ordenTrabajo.getProveedor()) // Assuming relationship exists
+                        .odometrot(ordenTrabajo.getOdometrot())
+                        .persona(ordenTrabajo.getPersona()) // Assuming relationship exists
+                        .activo(ordenTrabajo.isActivo())
+                        // .trabajoList(ordenTrabajo.getTrabajolist()) // Assuming relationship exists
+                        .build())
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(ordenTrabajoList);
     }
 
 
@@ -59,12 +79,66 @@ public class OrdenTrabajoController {
 
 
 
-    @PostMapping("/guardar")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*  @PostMapping("/guardar")
     public ResponseEntity<?> save(@RequestBody OrdenTrabajoDTO ordenTrabajoDTO) throws URISyntaxException {
 
         if (ordenTrabajoDTO.getVehiculo() == null || ordenTrabajoDTO.getFechaorden() == null ||
                 ordenTrabajoDTO.getFechacierre() == null || ordenTrabajoDTO.getProveedor() == null ||
-                ordenTrabajoDTO.getOdometro() == 0 || ordenTrabajoDTO.getPersona() == null) {
+                ordenTrabajoDTO.getOdometrot() == 0 || ordenTrabajoDTO.getPersona() == null) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -73,7 +147,7 @@ public class OrdenTrabajoController {
                 .fechaorden(ordenTrabajoDTO.getFechaorden())
                 .fechacierre(ordenTrabajoDTO.getFechacierre())
                 .proveedor(ordenTrabajoDTO.getProveedor()) // Assuming relationship exists
-                .odometro(ordenTrabajoDTO.getOdometro())
+                .odometrot(ordenTrabajoDTO.getOdometrot())
                 .persona(ordenTrabajoDTO.getPersona()) // Assuming relationship exists
                 .activo(ordenTrabajoDTO.isActivo())
                 // Set TrabajoList with proper logic (assuming relationships exist)
@@ -95,7 +169,7 @@ public class OrdenTrabajoController {
             ordenTrabajo.setFechaorden(ordenTrabajoDTO.getFechaorden());
             ordenTrabajo.setFechacierre(ordenTrabajoDTO.getFechacierre());
             ordenTrabajo.setProveedor(ordenTrabajoDTO.getProveedor()); // Assuming relationship exists
-            ordenTrabajo.setOdometro(ordenTrabajoDTO.getOdometro());
+            ordenTrabajo.setOdometrot(ordenTrabajoDTO.getOdometrot());
             ordenTrabajo.setPersona(ordenTrabajoDTO.getPersona()); // Assuming relationship exists
             ordenTrabajo.setActivo(ordenTrabajoDTO.isActivo());
             // Update TrabajoList with proper logic (assuming relationships exist)
@@ -106,7 +180,7 @@ public class OrdenTrabajoController {
         }
         return ResponseEntity.notFound().build();
     }
-
+*/
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {

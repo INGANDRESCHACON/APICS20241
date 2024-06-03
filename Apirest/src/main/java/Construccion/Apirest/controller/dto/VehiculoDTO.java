@@ -31,6 +31,7 @@ public class VehiculoDTO {
 
     private String centrocosto;
 
+    private int odometro;
 
     private String combustible;
 

@@ -1,4 +1,5 @@
 package Construccion.Apirest.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -21,7 +22,7 @@ public class Trabajo {
 
     @NotNull
     @Column(name = "codigo",nullable = false)
-    private String idtrabajo;
+    private String codigo;
 
     @NotNull
     @Column(nullable = false)
@@ -45,15 +46,21 @@ public class Trabajo {
 
     @ManyToOne
     //nullable siempre la relacion
-    @JoinColumn(name = "id_ordendetrabajo",nullable = false)
+    @JoinColumn(name = "id_ordendetrabajo")
+    @JsonIgnore // Evitar serializar la Orden de Trabajo junto con el Trabajo
     private OrdenTrabajo ordentrabajo;
 
-//LAZI SOLO CARGA LA LISTA CUANDO SE NECESITA
-    //orphan si elimino trabajo elimino de una repuestos y si es false no los borra
 
 
-    @OneToMany(mappedBy = "trabajo", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<TrabajoRepuesto> trabajoRepuestoList = new ArrayList<>();
+
+
+
+    //orphan si elimino ot elimino de una los trabajos y si es false no los borra
+    @OneToMany(mappedBy = "trabajo",cascade =CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
+
+    private List<Repuesto> repuestoslist = new ArrayList<>();
+
+
 
 
 

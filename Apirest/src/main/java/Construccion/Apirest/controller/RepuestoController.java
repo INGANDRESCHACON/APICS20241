@@ -54,7 +54,7 @@ public class RepuestoController {
                         .referencia(repuesto.getReferencia())
                         .cuentacontable(repuesto.getCuentacontable())
                         .activo(repuesto.isActivo())
-                        // Omitir la lista trabajoRepuestoList por ahora (relación uno a muchos)
+                        //.Trabajo(trabajo.gettrabajo())
                         .build())
                 .collect(Collectors.toList());
 
@@ -75,6 +75,7 @@ public class RepuestoController {
                 .referencia(repuestoDTO.getReferencia())
                 .cuentacontable(repuestoDTO.getCuentacontable())
                 .activo(repuestoDTO.isActivo())
+
                 .build();
 
         repuestoService.save(repuesto);
