@@ -2,12 +2,9 @@ package Construccion.Apirest.controller;
 
 import Construccion.Apirest.controller.dto.OrdenTrabajoDTO;
 import Construccion.Apirest.entities.OrdenTrabajo;
-import Construccion.Apirest.entities.Vehiculo;
 import Construccion.Apirest.service.IOrdenTrabajoService;
-import Construccion.Apirest.service.impl.OrdenTrabajoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -20,12 +17,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/ordentrabajo")
 public class OrdenTrabajoController {
 
-
-
     @Autowired
     private IOrdenTrabajoService ordenTrabajoService;
-    @Autowired
-    private OrdenTrabajoServiceImpl ordenTrabajoServiceImpl;
 
     @GetMapping("/obtenerid/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
@@ -36,7 +29,6 @@ public class OrdenTrabajoController {
             OrdenTrabajoDTO ordenTrabajoDTO = OrdenTrabajoDTO.builder()
                     .orden_id(ordenTrabajo.getOrden_id())
                     .vehiculo(ordenTrabajo.getVehiculo()) // Assuming relationship exists
-
                     .fechaorden(ordenTrabajo.getFechaorden())
                     .fechacierre(ordenTrabajo.getFechacierre())
                     .proveedor(ordenTrabajo.getProveedor()) // Assuming relationship exists
@@ -58,14 +50,13 @@ public class OrdenTrabajoController {
                 .map(ordenTrabajo -> OrdenTrabajoDTO.builder()
                         .orden_id(ordenTrabajo.getOrden_id())
                         .vehiculo(ordenTrabajo.getVehiculo()) // Assuming relationship exists
-
                         .fechaorden(ordenTrabajo.getFechaorden())
                         .fechacierre(ordenTrabajo.getFechacierre())
                         .proveedor(ordenTrabajo.getProveedor()) // Assuming relationship exists
                         .odometrot(ordenTrabajo.getOdometrot())
                         .persona(ordenTrabajo.getPersona()) // Assuming relationship exists
                         .activo(ordenTrabajo.isActivo())
-                        .trabajolist(ordenTrabajo.getTrabajolist()) // Assuming relationship exists
+                        // .trabajoList(ordenTrabajo.getTrabajolist()) // Assuming relationship exists
                         .build())
                 .collect(Collectors.toList());
 
@@ -77,41 +68,72 @@ public class OrdenTrabajoController {
 
 
 
-     @PostMapping("/abrirot")
-    public ResponseEntity<?> save(@RequestBody OrdenTrabajoDTO ordenTrabajoDTO) throws URISyntaxException {
-
-         if (ordenTrabajoDTO.getVehiculo() == null || ordenTrabajoDTO.getFechaorden() == null ||
-                 ordenTrabajoDTO.getFechacierre() == null || ordenTrabajoDTO.getProveedor() == null ||
-                 ordenTrabajoDTO.getOdometrot() <= 0 || ordenTrabajoDTO.getPersona() == null) {
-             return ResponseEntity.badRequest().build();
-         }
-         // vehiculo.getOdometro()
-         // Crear una instancia de OrdenTrabajo a partir de OrdenTrabajoDTO
-                  OrdenTrabajo ordenTrabajo = OrdenTrabajo.builder()
-                 .vehiculo(ordenTrabajoDTO.getVehiculo())
-                 .fechaorden(ordenTrabajoDTO.getFechaorden())
-                 .fechacierre(ordenTrabajoDTO.getFechacierre())
-                 .proveedor(ordenTrabajoDTO.getProveedor())
-                 .odometrot(ordenTrabajoDTO.getOdometrot())
-                 .persona(ordenTrabajoDTO.getPersona())
-                 .activo(ordenTrabajoDTO.isActivo())
-                 .trabajolist(ordenTrabajoDTO.getTrabajolist()) // Asignar la lista de trabajos desde el DTO
-                 .build();
-
-
-         ordenTrabajoService.save(ordenTrabajo); // Guardar la orden de trabajo usando el servicio
-         ordenTrabajoService.enviarCorreoOrdenTrabajo(ordenTrabajo);
-
-
-         return ResponseEntity.created(new URI("/api/ordentrabajo/abrirot")).body("Orden de trabajo guardada");
-     }
 
 
 
 
-/*
 
-    @PostMapping("/guardar")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*  @PostMapping("/guardar")
     public ResponseEntity<?> save(@RequestBody OrdenTrabajoDTO ordenTrabajoDTO) throws URISyntaxException {
 
         if (ordenTrabajoDTO.getVehiculo() == null || ordenTrabajoDTO.getFechaorden() == null ||
@@ -120,25 +142,21 @@ public class OrdenTrabajoController {
             return ResponseEntity.badRequest().build();
         }
 
-        // Crear una instancia de OrdenTrabajo a partir de OrdenTrabajoDTO
         OrdenTrabajo ordenTrabajo = OrdenTrabajo.builder()
-                .vehiculo(ordenTrabajoDTO.getVehiculo())
-
+                .vehiculo(ordenTrabajoDTO.getVehiculo()) // Assuming relationship exists
                 .fechaorden(ordenTrabajoDTO.getFechaorden())
                 .fechacierre(ordenTrabajoDTO.getFechacierre())
-                .proveedor(ordenTrabajoDTO.getProveedor())
+                .proveedor(ordenTrabajoDTO.getProveedor()) // Assuming relationship exists
                 .odometrot(ordenTrabajoDTO.getOdometrot())
-                .persona(ordenTrabajoDTO.getPersona())
+                .persona(ordenTrabajoDTO.getPersona()) // Assuming relationship exists
                 .activo(ordenTrabajoDTO.isActivo())
-                .trabajolist(ordenTrabajoDTO.getTrabajolist()) // Asignar la lista de trabajos desde el DTO
+                // Set TrabajoList with proper logic (assuming relationships exist)
                 .build();
 
-        ordenTrabajoService.save(ordenTrabajo); // Guardar la orden de trabajo usando el servicio
+        ordenTrabajoService.save(ordenTrabajo);
 
         return ResponseEntity.created(new URI("/api/ordentrabajo/guardar")).body("Orden de trabajo guardada");
     }
-
-
 
 
     @PutMapping("/update/{id}")
@@ -164,8 +182,6 @@ public class OrdenTrabajoController {
     }
 */
 
-
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
 
@@ -176,6 +192,24 @@ public class OrdenTrabajoController {
 
         return ResponseEntity.notFound().build();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
