@@ -49,6 +49,5 @@ public interface IOrdenTrabajoService {
     void deleteByid(Long id);
 
 
-
-
+    void enviarCorreoOrdenTrabajo(OrdenTrabajo ordenTrabajo);
 }

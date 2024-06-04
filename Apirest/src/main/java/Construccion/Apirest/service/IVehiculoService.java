@@ -17,6 +17,9 @@ public interface IVehiculoService {
     void deleteByid(Long id);
 
 
+    public boolean validarOdometro(int nuevoOdometro, Long idVehiculo);
+
+    void actualizarOdometroVehiculo(Long idVehiculo, int nuevoOdometro);
 
 
 }

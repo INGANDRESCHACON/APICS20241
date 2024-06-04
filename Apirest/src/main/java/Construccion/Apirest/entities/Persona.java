@@ -1,7 +1,11 @@
 package Construccion.Apirest.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -38,6 +42,19 @@ public class Persona {
     private String correo;
 
     private boolean activo;
+
+
+    @OneToMany(mappedBy = "persona", cascade =CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
+    @JsonIgnore
+    private List<OrdenTrabajo> ordenTrabajolist= new ArrayList<>();
+
+
+
+
+
+
+
+
 
 
 }

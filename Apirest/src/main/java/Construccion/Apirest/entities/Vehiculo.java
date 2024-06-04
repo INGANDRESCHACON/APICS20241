@@ -1,7 +1,12 @@
 package Construccion.Apirest.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -47,5 +52,12 @@ public class Vehiculo {
     @NotNull
     @Column(nullable = false)
     private boolean activo;
+
+
+    @OneToMany(mappedBy = "vehiculo", cascade =CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
+    @JsonIgnore
+    private List<OrdenTrabajo> ordenTrabajolist= new ArrayList<>();
+
+
 
 }

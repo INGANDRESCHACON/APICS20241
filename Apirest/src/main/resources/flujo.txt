@@ -23,6 +23,27 @@ ordenTrabajo.setActivo(true);
 ordenTrabajoRepository.save(ordenTrabajo);
 
 
+ESTRUCTURA GUARDAR JSON
+
+
+
+{
+
+  "vehiculo": {
+    "id": 10
+  },
+  "fechaorden": "2024-05-29",
+  "fechacierre": "2024-05-30",
+  "proveedor": {
+    "id": 10
+  },
+  "odometrot": 150,
+  "persona": {
+    "id": 10
+  },
+  "activo": false,
+  "trabajolist": []
+}
 
 
 

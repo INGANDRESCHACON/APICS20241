@@ -39,6 +39,7 @@ public class Trabajo {
 
     @NotNull
     @Column(nullable = false)
+    @JsonIgnore // Evitar serializar la Orden de Trabajo junto con el Trabajo
     private String cuentacontable;
 
 
@@ -47,7 +48,7 @@ public class Trabajo {
     @ManyToOne
     //nullable siempre la relacion
     @JoinColumn(name = "id_ordendetrabajo")
-    @JsonIgnore // Evitar serializar la Orden de Trabajo junto con el Trabajo
+   // @JsonIgnore // Evitar serializar la Orden de Trabajo junto con el Trabajo
     private OrdenTrabajo ordentrabajo;
 
 

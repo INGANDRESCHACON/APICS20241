@@ -2,6 +2,9 @@ package Construccion.Apirest.entities;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -17,50 +20,87 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table(name="ordentrabajo")
+@JsonIgnoreProperties(value = {"vehiculo", "fechaorden", "fechacierre", "odometrot", "proveedor", "persona", "activo", "trabajolist"})
 public class OrdenTrabajo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore // Evitar serializar la Orden de Trabajo junto con el Trabajo
     private long orden_id;
 
-
-    @NotNull
-    @OneToOne
+    @ManyToOne()
     @JoinColumn(name = "vehiculo_id")
+    @JsonIgnore // Evitar serializar la Orden de Trabajo junto con el Trabajo
     private Vehiculo vehiculo;
 
-    @NotNull
-    @Column(nullable = false)
-    private LocalDate fechaorden;
-
-    @NotNull
-    @Column(nullable = false)
-    private LocalDate fechacierre;
 
 
-    @NotNull
-    @OneToOne
+    @ManyToOne()
     @JoinColumn(name = "proveedor_id")
+    @JsonIgnore // Evitar serializar la Orden de Trabajo junto con el Trabajo
     private Proveedor proveedor;
 
-    @NotNull
 
-    private int odometrot;
-
-    @NotNull
-    @OneToOne
+    @ManyToOne()
     @JoinColumn(name = "persona_id")
+    @JsonIgnore // Evitar serializar la Orden de Trabajo junto con el Trabajo
     private Persona persona;
 
 
 
+
+    @NotNull
+    @Column(nullable = false)
+    @JsonIgnore // Evitar serializar la Orden de Trabajo junto con el Trabajo
+    private LocalDate fechaorden;
+
+    @NotNull
+    @Column(nullable = false)
+    @JsonIgnore // Evitar serializar la Orden de Trabajo junto con el Trabajo
+    private LocalDate fechacierre;
+
+
+
+
+    @NotNull
+  @JsonIgnore // Evitar serializar la Orden de Trabajo junto con el Trabajo
+    private int odometrot=0;
+
+
+    @JsonIgnore // Evitar serializar la Orden de Trabajo junto con el Trabajo
     private boolean activo;
 
 
 
     //orphan si elimino ot elimino de una los trabajos y si es false no los borra
     @OneToMany(mappedBy = "ordentrabajo",cascade =CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
-
     private List<Trabajo> trabajolist =new ArrayList<>();
+
+
+    public int getOdometro() {
+        return odometrot;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
