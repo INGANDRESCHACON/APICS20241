@@ -22,7 +22,7 @@ public class RepuestoDTO{
     private String cuentacontable;
     private boolean activo;
 
-   // private List<Repuesto> repuestolist =new ArrayList<>();
+   //private List<Repuesto> repuestolist =new ArrayList<>();
 
 
 

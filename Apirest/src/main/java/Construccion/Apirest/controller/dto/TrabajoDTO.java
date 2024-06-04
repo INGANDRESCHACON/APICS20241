@@ -23,8 +23,8 @@ public class TrabajoDTO {
     private int periodicidad;
     private String cuentacontable;
     private boolean activo;
-   // private OrdenTrabajo ordentrabajo;
+    private OrdenTrabajo ordentrabajo;
 
-  // private List<Repuesto> repuestolist =new ArrayList<>();
+  private List<Repuesto> repuestolist =new ArrayList<>();
 
 }
