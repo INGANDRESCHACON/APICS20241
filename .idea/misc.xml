@@ -4,6 +4,7 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
+        <option value="$PROJECT_DIR$/APICS20241-master/Apirest/pom.xml" />
         <option value="$PROJECT_DIR$/Apirest/pom.xml" />
       </list>
     </option>
